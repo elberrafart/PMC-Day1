@@ -4,6 +4,11 @@ def get_todos(filepath):
     return todos_local
 
 
+def write_todos(filepath, todos_arg):
+    with open(filepath, "w") as file:
+        file.writelines(todos_arg)
+
+
 while True:
     # Get user input and strip space char from it
     user_action = input("Type add, show, delete, edit, complete, or exit?: ")
@@ -16,8 +21,7 @@ while True:
 
         todos.append(todo + "\n")
 
-        with open("todos.txt", "w") as file:
-            file.writelines(todos)
+        write_todos("todos.txt", todos)
 
     elif user_action.startswith("show"):
 
@@ -40,8 +44,7 @@ while True:
             new_todo = input("Enter new todo: ")
             todos[number] = new_todo + "\n"
 
-            with open("todos.txt", "w") as file:
-                file.writelines(todos)
+            write_todos("todos.txt", todos)
         except ValueError:
             print("You fucked up! Place a number after 'edit'")
             continue
@@ -55,8 +58,7 @@ while True:
             todo_to_remove = todos[index].strip("\n")
             todos.pop(index)
 
-            with open("todos.txt", "w") as file:
-                file.writelines(todos)
+            write_todos("todos.txt", todos)
 
             message = f"Todo {todo_to_remove} was removed from the list"
             print(message)
